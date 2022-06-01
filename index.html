@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+    <div id="menuItems">
+      <img src="./media/logo.png" alt="Puzzle Cam Logo" class="logo">
+      <div id="menu">
+        <div id="controls">
+          Difficulty:  
+          <select id="difficulty">
+            <option value="easy">Easy</option>
+            <option value="normal">Normal</option>
+            <option value="hard">Hard</option>
+            <option value="insane">Insane</option>
+          </select>
+          <div>
+            <button id="start">Start</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="time"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
