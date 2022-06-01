@@ -1,5 +1,5 @@
 let POP_SOUND = new Audio("./../media/pop.mp3");
-POP_SOUND.volume = 0.1;
+POP_SOUND.volume = 0.2;
 
 class Piece {
     video: HTMLVideoElement;
