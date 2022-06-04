@@ -23,6 +23,5 @@ function formatTime(milliseconds: number) {
     formattedTime += ":";
     formattedTime += s.toString().padStart(2,'0');
 
-    console.log(h, m, s);
     return formattedTime;
 }

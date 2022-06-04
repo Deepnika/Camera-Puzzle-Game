@@ -22,6 +22,5 @@ export function setDifficulty() {
             break;
     }
     let grid = { rowNumber: rows, columnNumber: columns}
-    console.log(grid)
     return grid
 }

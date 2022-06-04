@@ -7,6 +7,8 @@ import { addEventListeners } from './eventManager';
 export default class Game {
     public canvas: HTMLCanvasElement;
     public context: CanvasRenderingContext2D;
+    public helperCanvas: HTMLCanvasElement;
+    public helperContext: CanvasRenderingContext2D;
     public startButton: HTMLButtonElement;
     public menuItemsElement: HTMLDivElement;
     public videoHasLoaded: boolean;
@@ -20,6 +22,8 @@ export default class Game {
     constructor() {
         this.canvas = <HTMLCanvasElement> document.getElementById("myCanvas")
         this.context= <CanvasRenderingContext2D> this.canvas.getContext("2d")
+        this.helperCanvas = <HTMLCanvasElement> document.getElementById("helperCanvas")
+        this.helperContext= <CanvasRenderingContext2D> this.helperCanvas.getContext("2d")
         this.video = <HTMLVideoElement> document.createElement("video")
         this.startButton = <HTMLButtonElement> document.getElementById("start");
         this.menuItemsElement = <HTMLDivElement> document.getElementById("menuItems");
@@ -41,9 +45,8 @@ export default class Game {
                 window.addEventListener("resize", () => {
                     this.handleResize()
                 })
-                this.PIECES = initializePieces(this.SIZE, this.video)
+                // this.PIECES = initializePieces(this.SIZE, this.video)
                 this.startButton.addEventListener("click", () => {
-                    console.log(this.SIZE);
                     let grid = setDifficulty();
                     this.SIZE.rows = grid.rowNumber;
                     this.SIZE.columns = grid.columnNumber;
@@ -64,11 +67,13 @@ export default class Game {
 
     update() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.helperContext.clearRect(0, 0, this.helperCanvas.width, this.helperCanvas.height);
         this.context.globalAlpha = 0.5;
         this.context.drawImage(this.video, this.SIZE.x, this.SIZE.y, this.SIZE.width, this.SIZE.height)
         this.context.globalAlpha = 1;
         for (let i=0; i<this.PIECES.length; i++) {
             this.PIECES[i].draw(this.context);
+            this.PIECES[i].draw(this.helperContext, false);
         }
         updateTime(this.START_TIME, this.END_TIME);
         window.requestAnimationFrame(() => {this.update()});
@@ -84,6 +89,9 @@ export default class Game {
     handleResize() {
         this.canvas.width = window.innerWidth
         this.canvas.height = window.innerHeight
+
+        this.helperCanvas.width = window.innerWidth
+        this.helperCanvas.height = window.innerHeight
 
         let resizer: number = (this.SCALAR * Math.min(
             window.innerWidth/this.video.videoWidth, window.innerHeight/this.video.videoHeight
